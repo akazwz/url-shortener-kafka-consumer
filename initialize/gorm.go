@@ -2,17 +2,17 @@ package initialize
 
 import (
 	"fmt"
-	"github.com/akazwz/url-shortener-kafka/model"
 	"log"
 	"os"
 
+	"github.com/akazwz/url-shortener-kafka/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 func InitGorm() *gorm.DB {
-	if os.Getenv("env") != "release" {
+	if os.Getenv("ENV") != "prod" {
 		return InitSqlite()
 	} else {
 		return InitMysql()

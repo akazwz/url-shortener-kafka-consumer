@@ -78,7 +78,7 @@ func writeToDB(message kafka.Message) {
 	}
 	err = global.GDB.Create(&visits).Error
 	if err != nil {
-		log.Println("新增访问记录失败:", err)
+		log.Println("failed to create visit:", err)
 	}
 }
 
@@ -87,10 +87,10 @@ func main() {
 }
 
 func init() {
-	if os.Getenv("GIN_MODE") != "release" {
+	if os.Getenv("ENV") != "prod" {
 		err := godotenv.Load(".env.local")
 		if err != nil {
-			log.Fatalln("读取配置文件失败")
+			log.Fatalln("failed to read env file")
 		}
 	}
 	global.GDB = initialize.InitGorm()
